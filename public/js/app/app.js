@@ -9,6 +9,7 @@
 var app = new Vue({
     el: '#app',
     events: {
+        // these all bubble up from child components
         'start-searching': function () {
             this.ss.anagrams = [];
             this.ss.searching = true;

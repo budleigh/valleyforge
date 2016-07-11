@@ -27,6 +27,10 @@ class SearchSocket {
     constructor (words, messageCallback, closeCallback) {
         this.socket = new WebSocket(constructWSURI());
 
+        this.socket.onopen = () => {
+            this.socket.send(words);
+        };
+
         this.socket.onmessage = (event) => {
             messageCallback(event.data);
         };

@@ -21,10 +21,10 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 
     def open(self):
         self.thread = PermutationThread(self)
-        self.thread.start()
 
     def on_message(self, message):
-        pass
+        self.thread.words = message
+        self.thread.start()
 
     def on_close(self):
         pass
