@@ -17,3 +17,4 @@ def make_app():
 if __name__ == '__main__':
     app = make_app()
     app.listen(os.environ.get('PORT', 5000))
+    tornado.ioloop.IOLoop.current().start()
