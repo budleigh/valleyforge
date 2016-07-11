@@ -17,19 +17,19 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## English Anagram Generator ##
-  > An app that takes any string of letter-characters and produces valid English anagrams of those letters.
+  An app that takes any string of letter-characters and produces valid English anagrams of those letters.
 
 ## Why ##
-  > In case Nic Cage needs to crack another password.
+  In case Nic Cage needs to crack another password.
 
 ## Summary ##
-  > Given any string of letter-characters (valid in English), VF will run permutations on it, filtering those permutations through sentence builders and English word validators to produce a list of valid English permutations.
+  Given any string of letter-characters (valid in English), VF will run permutations on it, filtering those permutations through sentence builders and English word validators to produce a list of valid English permutations.
 
 ## Problem ##
-  > Nic Cage needed this in National Treasure.
+  Nic Cage needed this in National Treasure.
 
 ## Solution ##
-  > Gives it a nice web-based UI instead of having to yell at Riley over a walkie talkie.
+  Gives it a nice web-based UI instead of having to yell at Riley over a walkie talkie.
 
 ## Testimonials ##
   > "We the people think this app rocks" - Abraham "Michael Scott" Washington
@@ -37,7 +37,7 @@ Once the project moves into development, the press release can be used as a touc
   > "I saved the Declaration of Independence from being stolen with this tool!" - Nic Cage
   
 ## How to Get Started ##
-  > Type a thing into the text box. Make sure it is just English letters and spaces.
+  Type a thing into the text box. Make sure it is just English letters and spaces.
 
 ## Moving Forward ##
-  > As we attempt to make the anagram builder faster and more sophisticated, check back often to see progress!
+  As we attempt to make the anagram builder faster and more sophisticated, check back often to see progress!
