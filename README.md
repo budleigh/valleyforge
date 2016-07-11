@@ -31,14 +31,13 @@ Once the project moves into development, the press release can be used as a touc
 ## Solution ##
   > Gives it a nice web-based UI instead of having to yell at Riley over a walkie talkie.
 
-## Quote from You ##
+## Testimonials ##
   > "We the people think this app rocks" - Abraham "Michael Scott" Washington
-
+  
+  > "I saved the Declaration of Independence from being stolen with this tool!" - Nic Cage
+  
 ## How to Get Started ##
   > Type a thing into the text box. Make sure it is just English letters and spaces.
 
-## Customer Quote ##
-  > "I saved the Declaration of Independence from being stolen with this tool!" - Nic Cage
-
-## Closing and Call to Action ##
+## Moving Forward ##
   > As we attempt to make the anagram builder faster and more sophisticated, check back often to see progress!
