@@ -94,3 +94,6 @@ vf-env/
 
 # bower components
 static/components/
+
+# npm
+node_modules/

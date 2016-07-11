@@ -1,0 +1,23 @@
+{
+  "name": "valleyforge",
+  "version": "0.0.1",
+  "description": "english anagrams",
+  "main": "server.py",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "./node_modules/bower/bin/bower install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/budleigh/valleyforge.git"
+  },
+  "author": "budleigh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/budleigh/valleyforge/issues"
+  },
+  "homepage": "https://github.com/budleigh/valleyforge#readme",
+  "dependencies": {
+    "bower": "1.7.9"
+  }
+}
