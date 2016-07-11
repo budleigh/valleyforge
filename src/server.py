@@ -7,7 +7,7 @@ import tornado.websocket
 class IndexHandler(tornado.web.RequestHandler):
 
     def get(self):
-        self.render('templates/index.html')
+        self.render('../templates/index.html')
 
 
 class SocketHandler(tornado.websocket.WebSocketHandler):
@@ -30,7 +30,7 @@ def make_app():
         (r'/', IndexHandler),
         (r'/socket/', SocketHandler),
         (r'/static/(.*)', tornado.web.StaticFileHandler, {
-            'path': os.path.dirname(os.path.realpath(__file__)) + '/static',
+            'path': os.path.dirname(os.path.realpath(__file__)) + '../static',
         }),
     ])
 
