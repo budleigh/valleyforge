@@ -4,7 +4,7 @@ import tornado.web
 import tornado.websocket
 
 if not os.environ.get('STATIC_PATH', False):
-    os.environ['STATIC_PATH'] = os.path.dirname(os.path.realpath(__file__)) + '/../static'
+    os.environ['STATIC_PATH'] = os.path.dirname(os.path.realpath(__file__)) + '/../public'
 
 
 class IndexHandler(tornado.web.RequestHandler):

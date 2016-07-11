@@ -93,7 +93,7 @@ vf-env/
 .idea/
 
 # bower components
-static/components/
+public/components/
 
 # npm
 node_modules/
