@@ -15,9 +15,11 @@ Vue.component('search', {
         search: function () {
             this.$dispatch('start-searching');
             // bind an event dispatcher to handle the new anagrams
-            // coming into the SearchSocket handler
+            // coming into the SearchSocket handler. also set up a
+            // 'socket-close' handler, indicating the search is finished
             var newAnagramCB = this.$dispatch.bind(this, 'new-anagram');
-            this.socket = new SearchSocket(this.words, newAnagramCB);
+            var socketCloseCB = this.$dispatch.bind(this, 'stop-searching');
+            this.socket = new SearchSocket(this.words, newAnagramCB, socketCloseCB);
         }
     }
 });

@@ -13,6 +13,11 @@ var app = new Vue({
             this.ss.anagrams = [];
             this.ss.searching = true;
         },
+
+        'stop-searching': function () {
+            this.ss.searching = false;
+        },
+
         'new-anagram': function (anagram) {
             this.ss.anagrams.push(anagram);
         }

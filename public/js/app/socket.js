@@ -24,16 +24,15 @@ function constructWSURI () {
  * (makes no expectations about binded-ness)
  */
 class SearchSocket {
-    constructor (words, messageCallback) {
+    constructor (words, messageCallback, closeCallback) {
         this.socket = new WebSocket(constructWSURI());
-        this.socket.onopen = () => {
-            console.log('open');
-        };
+
         this.socket.onmessage = (event) => {
             messageCallback(event.data);
         };
+
         this.socket.onclose = () => {
-            console.log('closed');
+            closeCallback();
         }
     }
 }
