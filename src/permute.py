@@ -8,5 +8,7 @@ class PermutationThread(threading.Thread):
         self.socket = socket
 
     def run(self):
-        self.socket.write_message('inside permutation thread')
+        self.socket.write_message('test permutation')
+        self.socket.write_message('test permutation2')
+        self.socket.write_message('test permutation3')
         self.socket.close()

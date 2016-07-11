@@ -10,7 +10,11 @@ var app = new Vue({
     el: '#app',
     events: {
         'start-searching': function () {
+            this.ss.anagrams = [];
             this.ss.searching = true;
+        },
+        'new-anagram': function (anagram) {
+            this.ss.anagrams.push(anagram);
         }
     }
 });

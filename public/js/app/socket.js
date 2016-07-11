@@ -15,14 +15,22 @@ function constructWSURI () {
     return uri += loc.pathname + "socket/";
 }
 
+/**
+ * Handles communication with the permutation
+ * processor thread on the server via a socket.
+ * Takes a 'phrase' to send to the permutation
+ * processing thread, takes results, then calls
+ * whatever the newmessage handler callback is
+ * (makes no expectations about binded-ness)
+ */
 class SearchSocket {
-    constructor (words) {
+    constructor (words, messageCallback) {
         this.socket = new WebSocket(constructWSURI());
         this.socket.onopen = () => {
             console.log('open');
         };
         this.socket.onmessage = (event) => {
-            console.log(event.data);
+            messageCallback(event.data);
         };
         this.socket.onclose = () => {
             console.log('closed');
