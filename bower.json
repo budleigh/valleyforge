@@ -1,0 +1,21 @@
+{
+  "name": "valleyforge",
+  "homepage": "https://github.com/budleigh/valleyforge",
+  "authors": [
+    "budleigh <arguewithplato@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}

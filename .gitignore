@@ -91,3 +91,6 @@ vf-env/
 
 # pycharm
 .idea/
+
+# bower components
+static/components/
