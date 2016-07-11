@@ -6,13 +6,13 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: [
-                    'static/js/app/init.js',
-                    'static/js/app/search.js',
-                    'static/js/app/anagrams.js',
-                    'static/js/app/app.js',
-                    'static/js/app/util.js'
+                    'public/js/app/init.js',
+                    'public/js/app/search.js',
+                    'public/js/app/anagrams.js',
+                    'public/js/app/app.js',
+                    'public/js/app/util.js'
                 ],
-                dest: 'static/js/valleyforge.js'
+                dest: 'public/js/valleyforge.js'
             }
         }
     });
