@@ -10,7 +10,7 @@ module.exports = function (grunt) {
                     'public/js/app/search.js',
                     'public/js/app/anagrams.js',
                     'public/js/app/app.js',
-                    'public/js/app/util.js'
+                    'public/js/app/socket.js'
                 ],
                 dest: 'public/js/valleyforge.js'
             }

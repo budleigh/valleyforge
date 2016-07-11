@@ -2,6 +2,7 @@ import os
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
+from src.permute import PermutationThread
 
 if not os.environ.get('STATIC_PATH', False):
     os.environ['STATIC_PATH'] = os.path.dirname(os.path.realpath(__file__)) + '/../public'
@@ -19,7 +20,8 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
         return True
 
     def open(self):
-        print('connected')
+        self.thread = PermutationThread(self)
+        self.thread.start()
 
     def on_message(self, message):
         pass

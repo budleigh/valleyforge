@@ -8,17 +8,13 @@ Vue.component('search', {
     data: function () {
         return {
             words: '',
-            socket: undefined,
-            socketURI: constructWSURI()
+            socket: undefined
         }
     },
     methods: {
         search: function () {
             this.$dispatch('start-searching');
-            this.socket = new WebSocket(this.socketURI);
-            this.socket.onopen = () => {
-                console.log('socket open');
-            }
+            this.socket = new SearchSocket(this.words);
         }
     }
 });
