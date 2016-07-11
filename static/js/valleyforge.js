@@ -38,12 +38,18 @@ Vue.component('search', {
     template: '#search',
     data: function () {
         return {
-            words: ''
+            words: '',
+            socket: undefined,
+            socketURI: constructWSURI()
         }
     },
     methods: {
         search: function () {
-            this.$dispatch('searching');
+            this.$dispatch('start-searching');
+            this.socket = new WebSocket(this.socketURI);
+            this.socket.onopen = () => {
+                console.log('socket open');
+            }
         }
     }
 });
@@ -68,7 +74,7 @@ Vue.component('anagrams', {
 var app = new Vue({
     el: '#app',
     events: {
-        'searching': function () {
+        'start-searching': function () {
             this.ss.searching = true;
         }
     }
