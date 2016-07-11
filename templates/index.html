@@ -10,6 +10,7 @@
     <div class="container" id="app">
         <div class="jumbotron text-center">
             <h2>Hello, world!</h2>
+            <img v-if="ss.searching" src="/static/img/loader.gif"/>
         </div>
         <search></search>
         <anagrams></anagrams>
@@ -18,7 +19,7 @@
     <template id="search">
         <div class="row">
             <div class="col-md-12">
-                <input class="form-control" v-model="words"/>
+                <input v-on:keyup.enter="search" class="form-control" v-model="words"/>
                 <div>[[ words ]]</div>
             </div>
         </div>

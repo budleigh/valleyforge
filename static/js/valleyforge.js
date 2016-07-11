@@ -12,17 +12,19 @@ Vue.config.delimiters = ['[[', ']]']; // clashes with template {}
  * manager of this state.
  */
 var state = {
-    anagrams: []
+    anagrams: [],
+    searching: false
 };
 
-// this registers a 'global mixin' - that is, EVERY vue
-// component receives the provided structure. this is
-// usually bad but ok to implement fluxy-type stuff.
+/**
+ * this registers a 'global mixin' - that is, EVERY vue component
+ * receives the provided structure. this is usually bad but ok to
+ * implement fluxy-type stuff.
+ */
 Vue.mixin({
     data: function () {
         return {
-            ss: state,
-            ps: {}
+            ss: state
         }
     }
 });
@@ -38,6 +40,11 @@ Vue.component('search', {
         return {
             words: ''
         }
+    },
+    methods: {
+        search: function () {
+            this.$dispatch('searching');
+        }
     }
 });
 
@@ -47,12 +54,7 @@ Vue.component('search', {
  * them to a well list.
  */
 Vue.component('anagrams', {
-    template: '#anagrams',
-    data: function () {
-        return {
-            anagrams: []
-        }
-    }
+    template: '#anagrams'
 });
 
 /**
@@ -64,5 +66,28 @@ Vue.component('anagrams', {
  * @type {Vue}
  */
 var app = new Vue({
-    el: '#app'
+    el: '#app',
+    events: {
+        'searching': function () {
+            this.ss.searching = true;
+        }
+    }
 });
+
+// util functions
+
+function constructWSURI () {
+    /**
+    * constructs a 'relative' websocket URI path
+    * is also sensitive to the protocol the pagewas
+    * grabbed - https = wss, http = ws
+    */
+    var loc = window.location, uri;
+    if (loc.protocol === "https:") {
+        uri = "wss:";
+    } else {
+        uri = "ws:";
+    }
+    uri += "//" + loc.host;
+    return uri += loc.pathname + "socket/";
+}
