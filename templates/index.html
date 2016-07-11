@@ -7,11 +7,32 @@
     <link rel="stylesheet" href="/static/css/valleyforge.css"/>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="app">
         <div class="jumbotron text-center">
             <h2>Hello, world!</h2>
         </div>
+        <search></search>
+        <anagrams></anagrams>
     </div>
+
+    <template id="search">
+        <div class="row">
+            <div class="col-md-12">
+                <input v-model="words"/>
+                <div>[[ words ]]</div>
+            </div>
+        </div>
+    </template>
+
+    <template id="anagrams">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well">
+                    <div v-for="anagram in anagrams">[[ anagram ]]</div>
+                </div>
+            </div>
+        </div>
+    </template>
 <script src="/static/components/jquery/dist/jquery.min.js"></script>
 <script src="/static/components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/static/components/vue/dist/vue.js"></script>
