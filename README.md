@@ -41,3 +41,15 @@ Once the project moves into development, the press release can be used as a touc
 
 ## Moving Forward ##
   As we attempt to make the anagram builder faster and more sophisticated, check back often to see progress!
+  
+## Developing ##
+  - clone repo
+  - get:
+    - python3.x, virtualenv, node, npm, and bower
+  - run (from root folder):
+    - virtualenv vf-env
+    - source vf-env/bin/activate
+    - pip install -r requirements.txt
+    - npm install
+  - for local build:
+    - python server.py
