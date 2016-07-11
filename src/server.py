@@ -3,6 +3,9 @@ import tornado.ioloop
 import tornado.web
 import tornado.websocket
 
+if not os.environ.get('STATIC_PATH', False):
+    os.environ['STATIC_PATH'] = os.path.dirname(os.path.realpath(__file__)) + '/../static'
+
 
 class IndexHandler(tornado.web.RequestHandler):
 
@@ -30,7 +33,7 @@ def make_app():
         (r'/', IndexHandler),
         (r'/socket/', SocketHandler),
         (r'/static/(.*)', tornado.web.StaticFileHandler, {
-            'path': os.path.dirname(os.path.realpath(__file__)) + '../static',
+            'path': os.environ.get('STATIC_PATH'),
         }),
     ])
 
