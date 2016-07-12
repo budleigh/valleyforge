@@ -2,10 +2,13 @@ import os
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
+import nltk
 from src.permute import PermutationThread
 
 if not os.environ.get('STATIC_PATH', False):
     os.environ['STATIC_PATH'] = os.path.dirname(os.path.realpath(__file__)) + '/../public'
+
+english = set(w.lower() for w in nltk.corpus.words.words())
 
 
 class IndexHandler(tornado.web.RequestHandler):
@@ -20,7 +23,7 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
         return True
 
     def open(self):
-        self.thread = PermutationThread(self)
+        self.thread = PermutationThread(self, english)
 
     def on_message(self, message):
         self.thread.words = message

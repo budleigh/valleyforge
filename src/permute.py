@@ -4,9 +4,10 @@ import itertools
 
 class PermutationThread(threading.Thread):
 
-    def __init__(self, socket):
+    def __init__(self, socket, dictionary):
         threading.Thread.__init__(self)
         self.socket = socket
+        self.dictionary = dictionary  # english ref from server
         self.words = None
         self.kill = False
 
@@ -23,6 +24,7 @@ class PermutationThread(threading.Thread):
                 break
 
             anagram = ''.join(list(anagram))
-            self.message(anagram)
+            if anagram.lower() in self.dictionary:
+                self.message(anagram)
 
         self.socket.close()
