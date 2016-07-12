@@ -63,8 +63,8 @@ class PermutationThread(threading.Thread):
                 self.workers.remove(worker)
 
         if not self.workers:
-            return False  # all done
-        return True  # some still working
+            return True  # all done
+        return False  # some still working
 
     def worker_join(self):
         # wait for workers to finish
@@ -74,8 +74,13 @@ class PermutationThread(threading.Thread):
 
             self.cycle()
 
-            if not self.cleanup_workers():
+            if self.cleanup_workers():
+                self.dump_residual()
                 return
+
+    def dump_residual(self):
+        while not self.queue.empty():
+            self.message(self.queue.get())
 
     def run(self):
         self.normalize_words()
