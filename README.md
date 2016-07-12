@@ -54,4 +54,5 @@ Once the project moves into development, the press release can be used as a touc
     - pip install -r requirements.txt
     - npm install
   - for local build:
-    - python server.py
+    - run grunt, just in case
+    - python src/server/server.py
