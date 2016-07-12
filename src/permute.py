@@ -10,6 +10,7 @@ class PermutationThread(threading.Thread):
         self.dictionary = dictionary  # english ref from server
         self.words = None
         self.kill = False
+        self.seen = set()
 
     def message(self, message):
         try:
@@ -18,13 +19,22 @@ class PermutationThread(threading.Thread):
         except:
             self.kill = True
 
+    def normalize_words(self):
+        # normalize the string to interact with dictionary
+        self.words = self.words.replace(' ', '')
+        self.words = self.words.lower()
+
     def run(self):
+        self.normalize_words()
         for anagram in itertools.permutations(self.words):
             if self.kill:
                 break
 
             anagram = ''.join(list(anagram))
-            if anagram.lower() in self.dictionary:
+            if anagram in self.dictionary:
+                if anagram in self.seen:
+                    continue
                 self.message(anagram)
+                self.seen.add(anagram)
 
         self.socket.close()

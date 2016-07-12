@@ -9,6 +9,7 @@ if not os.environ.get('STATIC_PATH', False):
     os.environ['STATIC_PATH'] = os.path.dirname(os.path.realpath(__file__)) + '/../public'
 
 english = set(w.lower() for w in nltk.corpus.words.words())
+# set the above so we dont load it again for every open socket
 
 
 class IndexHandler(tornado.web.RequestHandler):
@@ -33,7 +34,7 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
         try:
             self.thread.kill = True
         except AttributeError:
-            # already dead
+            # worker is already dead
             pass
 
 

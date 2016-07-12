@@ -8,18 +8,37 @@ Vue.component('search', {
     data: function () {
         return {
             words: '',
-            socket: undefined
+            socket: undefined,
+            socketURI: constructWSURI()
         }
     },
     methods: {
         search: function () {
+            if (this.ss.searching) {
+                this.socket.close();
+                // close before opening a new mone
+            }
+            this.openSearchSocket();
+        },
+
+        openSearchSocket: function () {
             this.$dispatch('start-searching');
-            // bind an event dispatcher to handle the new anagrams
-            // coming into the SearchSocket handler. also set up a
-            // 'socket-close' handler, indicating the search is finished
-            var newAnagramCB = this.$dispatch.bind(this, 'new-anagram');
-            var socketCloseCB = this.$dispatch.bind(this, 'stop-searching');
-            this.socket = new SearchSocket(this.words, newAnagramCB, socketCloseCB);
+            this.socket = new WebSocket(this.socketURI);
+            this.socket.onopen = () => {
+                this.socket.send(this.words);
+            };
+            this.socket.onmessage = (event) => {
+                this.$dispatch('new-anagram', event.data);
+            };
+            this.socket.onclose = () => {
+                // because the sockets are handled asyncly, it
+                // may happen that we open a new one before the
+                // old is closed. the new one will always be in
+                // 'this.socket' so we can just check.
+                if (this.socket.readyState === this.socket.CLOSED) {
+                    this.$dispatch('stop-searching');
+                }
+            }
         }
     }
 });
