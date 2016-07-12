@@ -8,6 +8,9 @@ Vue.component('search', {
     data: function () {
         return {
             words: '',
+            // how many permutations the server has checked
+            // IN TOTAL, so this will get fairly large
+            permutations: 0,
             socket: undefined,
             // relative URI, see util func below
             socketURI: constructWSURI()
@@ -34,6 +37,7 @@ Vue.component('search', {
              * one so we don't get overlapping results.
              */
             this.$dispatch('start-searching');
+            this.permutations = 0;
             this.socket = new WebSocket(this.socketURI);
 
             this.socket.onopen = () => {
@@ -44,7 +48,14 @@ Vue.component('search', {
             };
 
             this.socket.onmessage = (event) => {
-                this.$dispatch('new-anagram', event.data);
+                if (event.data.indexOf('---') !== -1) {
+                    // this is a ping coming from the server
+                    // it keeps heroku alive and we get a
+                    // permutation count from it
+                    this.permutations = parseInt(event.data.split(' ')[1]);
+                } else {
+                    this.$dispatch('new-anagram', event.data);
+                }
             };
 
             this.socket.onclose = () => {

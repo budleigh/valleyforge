@@ -5,11 +5,12 @@ import itertools
 
 class PermutationThread(threading.Thread):
     """
-    A worker with a one-to-one relationship with a socket. The socket is sitting
-    in the ioloop of Tornado, but these operations would  still be blocking, so
-    we launch a thread for each socket. This normalizes the input string, then
-    spawns a bunch of sub-threads that do the actual anagram searches based on
-    some variant of the original string with inserted spaces.
+    A worker with a one-to-one relationship with a socket. The socket is
+    sitting in the ioloop of Tornado, but these operations would  still
+    be blocking, so we launch a thread for each socket. This normalizes
+    the input string, then spawns a bunch of sub-threads that do the actual
+    anagram searches based on some variant of the original string with inserted
+    spaces.
     """
 
     def __init__(self, socket, dictionary):
@@ -21,6 +22,10 @@ class PermutationThread(threading.Thread):
         self.seen = set()
         self.queue = queue.Queue()
         self.workers = []
+        self.permutations_considered = 0
+        self.cycle_count = 0
+        # cycle count tracks cycles to send pings at reasonable
+        # intervals...-
 
     def message(self, message):
         # send a message through the socket that spawned it
@@ -29,6 +34,22 @@ class PermutationThread(threading.Thread):
                 self.socket.write_message(message)
         except:
             self.kill = True
+
+    def ping(self, force=False):
+        # heroku free instances do this cool thing where they shut
+        # down if there are no TCP communication between the server
+        # and anyone. so we do this periodic ping to keep it alive
+        # piggybacking on that is the 'permutation count'
+        message = '--- ' + str(self.permutations_considered)
+        if force:
+            self.message(message)
+            return
+
+        if self.cycle_count == 500:
+            self.message(message)
+            self.cycle_count = 0
+            # reset the cycle count so it doesn't get massive
+            # this is sort of unclean, but figure it later
 
     def normalize_words(self):
         # normalize the string to interact with dictionary
@@ -68,8 +89,9 @@ class PermutationThread(threading.Thread):
         store.append(worker)
         worker.start()
 
-    def cycle(self):
+    def send_anagram(self):
         # run in the 'mainloop', _join
+        # bump cycle here for the ping
         anagram = self.get_anagram()
         if anagram:
             self.message(anagram)
@@ -93,7 +115,10 @@ class PermutationThread(threading.Thread):
             if self.kill:
                 return
 
-            self.cycle()
+            # inc cycle, ping and send anagrams (if any)
+            self.cycle_count += 1
+            self.ping()
+            self.send_anagram()
 
             if self.cleanup_workers():
                 self.dump_residual()
@@ -109,7 +134,9 @@ class PermutationThread(threading.Thread):
     def run(self):
         self.normalize_words()
         self.spawn_workers()
+        # below blocks until workers are done/q is empty
         self._join()
+        self.ping(force=True)  # send a final count
         self.socket.close()
 
 
@@ -168,6 +195,9 @@ class SpaceWorker(threading.Thread):
             # get anagrams - thinking it might be faster.
             if self.parent.kill:
                 break
+
+            self.parent.permutations_considered += 1
+            # this seems sort of partially thread un-safe?
 
             anagram, valid = self.process_anagram(anagram)
             if valid:
