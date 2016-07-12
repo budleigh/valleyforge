@@ -23,6 +23,7 @@ class PermutationThread(threading.Thread):
         self.workers = []
 
     def message(self, message):
+        # send a message through the socket that spawned it
         try:
             if self.socket:
                 self.socket.write_message(message)
@@ -68,6 +69,7 @@ class PermutationThread(threading.Thread):
         worker.start()
 
     def cycle(self):
+        # run in the 'mainloop', _join
         anagram = self.get_anagram()
         if anagram:
             self.message(anagram)
@@ -83,6 +85,7 @@ class PermutationThread(threading.Thread):
         return False  # some still working
 
     def _join(self):
+        # PSEUDO_MAINLOOP
         # wait for workers to finish, grab stuff from
         # the queue, write it out, and dump residual
         # once finished
