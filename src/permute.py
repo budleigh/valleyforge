@@ -1,4 +1,5 @@
 import threading
+import itertools
 
 
 class PermutationThread(threading.Thread):
@@ -17,5 +18,11 @@ class PermutationThread(threading.Thread):
             self.kill = True
 
     def run(self):
-        self.socket.write_message(self.words)
+        for anagram in itertools.permutations(self.words):
+            if self.kill:
+                break
+
+            anagram = ''.join(list(anagram))
+            self.message(anagram)
+
         self.socket.close()
