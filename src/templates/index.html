@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="/static/css/valleyforge.css"/>
 </head>
 <body>
+    <!-- parent application, associated with src/js/init
+         and src/js/app.js. parent scope for all components
+         that are rendered with the below templates.
+    -->
     <div class="container" id="app">
         <div class="jumbotron text-center">
             <h2>Valley Forge</h2>
@@ -17,6 +21,10 @@
         <anagrams></anagrams>
     </div>
 
+    <!-- associated with src/js/search.js
+         renders the search input and stop
+         button
+    -->
     <template id="search">
         <div class="row">
             <div class="col-md-8">
@@ -28,6 +36,10 @@
         </div>
     </template>
 
+    <!-- associated with src/js/anagrams.js
+         renders the anagram list in the global
+         scope (ss.anagrams)
+    -->
     <template id="anagrams">
         <div class="row">
             <div class="col-md-12">

@@ -4,7 +4,6 @@
  * trigger changes in the state object. All state changes
  * go through this object, no child component should be
  * allowed to directly manipulate the state.
- * @type {Vue}
  */
 var app = new Vue({
     el: '#app',

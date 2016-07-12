@@ -9,6 +9,7 @@ Vue.component('search', {
         return {
             words: '',
             socket: undefined,
+            // relative URI, see util func below
             socketURI: constructWSURI()
         }
     },
@@ -22,14 +23,23 @@ Vue.component('search', {
         },
 
         stop: function () {
+            // close dispatches stop-searching
             this.socket.close();
         },
 
         openSearchSocket: function () {
+            /**
+             * Each search gets its own socket. the
+             * previous socket is killed for each new
+             * one so we don't get overlapping results.
+             */
             this.$dispatch('start-searching');
             this.socket = new WebSocket(this.socketURI);
 
             this.socket.onopen = () => {
+                // this is done once, and this initializes
+                // the worker thread on the server to start
+                // processing and sending back results
                 this.socket.send(this.words);
             };
 
@@ -38,6 +48,10 @@ Vue.component('search', {
             };
 
             this.socket.onclose = () => {
+                // if we start a new search, the new one might
+                // open before the old one closes, so we need
+                // to monitor 'this.socket' as it changes so
+                // we dont do anything silly with the UI
                 if (this.socket.readyState === this.socket.CLOSED) {
                     this.$dispatch('stop-searching');
                 }

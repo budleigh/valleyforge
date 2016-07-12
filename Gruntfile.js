@@ -2,6 +2,9 @@ module.exports = function (grunt) {
     grunt.initConfig({
         concat: {
             options: {
+                // change this when minified
+                // for now this is to make
+                // it readable post-concat
                 separator: '\n\n'
             },
             dist: {
@@ -17,6 +20,9 @@ module.exports = function (grunt) {
         }
     });
 
+    // below can be run manually and is automatically
+    // called on heroku by sticking it into the
+    // post-install script in package.json
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.registerTask('build', [
         'concat'

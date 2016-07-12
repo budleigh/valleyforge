@@ -22,12 +22,17 @@ class IndexHandler(tornado.web.RequestHandler):
 class SocketHandler(tornado.websocket.WebSocketHandler):
 
     def check_origin(self, origin):
+        # tornado requires this for any sockets to work
+        # im sure i should be doing something here but..
         return True
 
     def open(self):
         self.thread = PermutationThread(self, english)
 
     def on_message(self, message):
+        # the message contains the query from the client
+        # this happens every time they hit enter in the
+        # search bar
         self.thread.words = message
         self.thread.start()
 
@@ -50,5 +55,7 @@ def make_app():
 
 if __name__ == '__main__':
     app = make_app()
+    # heroku stores ports in the environment
+    # we use 5000 as a default for local builds
     app.listen(os.environ.get('PORT', 5000))
     tornado.ioloop.IOLoop.current().start()

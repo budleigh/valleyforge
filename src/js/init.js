@@ -20,7 +20,9 @@ var state = {
 Vue.mixin({
     data: function () {
         return {
-            ss: state
+            ss: state  // the global state managed by the app
+            // all Vue components have access to this (in theory
+            // write AND read) but children change it by events
         }
     }
 });
