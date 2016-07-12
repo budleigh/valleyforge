@@ -6,11 +6,11 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: [
-                    'public/js/app/init.js',
-                    'public/js/app/search.js',
-                    'public/js/app/anagrams.js',
-                    'public/js/app/app.js',
-                    'public/js/app/socket.js'
+                    'src/js/init.js',
+                    'src/js/search.js',
+                    'src/js/anagrams.js',
+                    'src/js/app.js',
+                    'src/js/socket.js'
                 ],
                 dest: 'public/js/valleyforge.js'
             }

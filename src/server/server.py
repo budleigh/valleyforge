@@ -1,12 +1,13 @@
 import os
+import nltk
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
-import nltk
-from src.permute import PermutationThread
+
+from src.server.permute import PermutationThread
 
 if not os.environ.get('STATIC_PATH', False):
-    os.environ['STATIC_PATH'] = os.path.dirname(os.path.realpath(__file__)) + '/../public'
+    os.environ['STATIC_PATH'] = os.path.dirname(os.path.realpath(__file__)) + '/../../public'
 
 english = set(w.lower() for w in nltk.corpus.words.words())
 # set the above so we dont load it again for every open socket
