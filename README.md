@@ -18,6 +18,8 @@ Once the project moves into development, the press release can be used as a touc
  
 ## English Anagram Generator ##
   An app that takes any string of letter-characters and produces valid English anagrams of those letters.
+  
+  [live now](http://valleyforge.heroku.com)
 
 ## Why ##
   In case Nic Cage needs to crack another password.
