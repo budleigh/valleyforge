@@ -4,7 +4,6 @@
 * grabbed - https = wss, http = ws
 */
 function constructWSURI () {
-
     var loc = window.location, uri;
     if (loc.protocol === "https:") {
         uri = "wss:";

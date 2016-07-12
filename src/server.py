@@ -27,7 +27,11 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
         self.thread.start()
 
     def on_close(self):
-        pass
+        try:
+            self.thread.kill = True
+        except AttributeError:
+            # already dead
+            pass
 
 
 def make_app():
