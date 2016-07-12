@@ -2,6 +2,14 @@
     border-radius: 0 !important;
 }
 
+body {
+    background: url('/static/img/niccage.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .container {
     max-width: 35%;
 }
