@@ -69,7 +69,9 @@ class SpaceWorker(threading.Thread):
         self.running = False
 
     def is_english(self, word):
-        return word in self.parent.dictionary
+        if (len(word) == 1 and word not in list('ia')) or (word not in self.parent.dictionary):
+            return False
+        return True
 
     def run(self):
         self.running = True
