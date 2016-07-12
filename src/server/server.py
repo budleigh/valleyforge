@@ -3,7 +3,6 @@ import nltk
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
-
 from src.server.permute import PermutationThread
 
 if not os.environ.get('STATIC_PATH', False):
